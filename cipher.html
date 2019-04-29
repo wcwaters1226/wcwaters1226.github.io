@@ -11,27 +11,18 @@
 	
 	 <input id="in">
 
-    <button type="button" onclick="Caesar()">Submit</button>
+    <button type="button" onclick="rot13()">Submit</button>
 
     <p id="out"></p>
 
 	<script>
-	function Caesar(order){
-    this.order = order;
-    this.encode = encode;
-    function encode(input){
-        this.output = '';
-        for (var i = 0; i < input.length; i++) {
-            var this.c = input.charCodeAt(i);
-            if (this.c >= 65 && this.c <=  90) 
-                // Uppercase
-                this.output += String.fromCharCode((this.c - 65 + this.order) % 26 + 65);  
-            else if (this.c >= 97 && this.c <= 122) 
-                // Lowercase
-                this.output += String.fromCharCode((this.c - 97 + this.key) % 26 + 97);  
-            else   
-                this.output += input.charAt(i);    
-        }
-    return answer.innerHTML= output;
-} 
+function rot13(str){  
+  var res = [];
+  for (var i = 0; i<str.length; i++) {
+    if (str.charCodeAt(i)+13 > 122) res.push(String.fromCharCode(96+str.charCodeAt(i)-122+13));    
+    else res.push(String.fromCharCode(str.charCodeAt(i)+13));
+  }
+  return res.join('');
+}
+rot13("jurervfzlpbssrr");  
 	</script>
