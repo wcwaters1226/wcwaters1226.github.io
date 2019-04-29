@@ -16,13 +16,65 @@
     <p id="out"></p>
 
 	<script>
-function rot13(str){  
-  var res = [];
-  for (var i = 0; i<str.length; i++) {
-    if (str.charCodeAt(i)+13 > 122) res.push(String.fromCharCode(96+str.charCodeAt(i)-122+13));    
-    else res.push(String.fromCharCode(str.charCodeAt(i)+13));
+var alphabet = "abcdefghijklmnopqrstuvwxyz";
+var fullAlphabet = alphabet + alphabet + alphabet;
+
+function runCipher(){
+  var cipherText = $('#cypher').val();
+  var cipherOffset = $('#offset').val();
+  cipherOffset = (cipherOffset % alphabet.length);
+  var cipherFinish = '';
+
+  for(i=0; i<cipherText.length; i++){
+     var letter = cipherText[i];
+     var upper = (letter == letter.toUpperCase());
+     letter = letter.toLowerCase();
+    
+     var index = alphabet.indexOf(letter);
+     if(index == -1){
+       cipherFinish += letter;
+     } else {
+       index = ((index + cipherOffset) + alphabet.length);
+       var nextLetter = fullAlphabet[index];
+       if(upper) nextLetter = nextLetter.toUpperCase();
+       cipherFinish += nextLetter;
+     }
   }
-  return res.join('');
+    
+  $('#finish').val(cipherFinish);
 }
-rot13("jurervfzlpbssrr");  
+
+$(document).ready(function() {
+  $('#cypher').keypress(function(){
+    setTimeout(function(){ runCipher(); },20);
+  });
+  $('#cypher').blur(function(){
+    runCipher();
+  });
+  $('#offset').change(function(){
+    setTimeout(runCipher(),20);
+  });
+  
+});
 	</script>
+<div id="container">
+  <div class="speech">Put the text to cipher in the input</div>
+  <div class="input">
+    <form id="form">
+      Text: 
+      <input type="text" id="cypher"/>
+      Offset:
+      <input type="number" value="7" id="offset"/>
+      <br/>
+      <br/>
+      <br/>
+      Finish:
+      <input type="text" id="finish"/>
+
+      <br/>
+      <br/>
+      <br/>
+      
+    </form>
+  </div>
+</div>
