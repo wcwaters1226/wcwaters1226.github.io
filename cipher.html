@@ -10,9 +10,14 @@
 <h1>Caesar Cipher</h1>
 
 function rot13(str) {
-  var input     = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
-  var output    = 'NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm';
-  var index     = x => input.indexOf(x);
-  var translate = x => index(x) > -1 ? output[index(x)] : x;
-  return str.split('').map(translate).join('');
+  return str.replace(/([A-M])|([a-m]])|([N-Z])|([n-z])/g, function(match, p1, p2, p3, p4) {
+    switch(match) {
+      case p1:
+      case p2:     
+        return String.fromCharCode(match.charCodeAt(0) + 13);
+      case p3:
+      case p4:
+        return String.fromCharCode(match.charCodeAt(0) - 13);
+    }
+  });
 }
