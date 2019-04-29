@@ -9,30 +9,23 @@
  
 <h1>Caesar Cipher</h1>
 	
-	 <input id="in">
-
-    <button type="button" onclick="myFunction()">Submit</button>
-
-    <p id="out"></p>
-
-    <script>
-        function myFunction() {
-            var inVar, outVar;
-
-            // Input
-            inVar = document.getElementById("in").value;
-
-            // Processing
-            outVar = "";
-            var position = 0;
-            while (position < 3) {
-                outVar = outVar + String.fromCharCode(inVar.charCodeAt(position) - 3);
-                position = position + 1;
-            }
-
-            // Output
-            document.getElementById("out").innerHTML = outVar;
+	<script>
+	function Caesar(order){
+    this.order = order;
+    this.encode = encode;
+    function encode(input){
+        this.output = '';
+        for (var i = 0; i < input.length; i++) {
+            var this.c = input.charCodeAt(i);
+            if (this.c >= 65 && this.c <=  90) 
+                // Uppercase
+                this.output += String.fromCharCode((this.c - 65 + this.order) % 26 + 65);  
+            else if (this.c >= 97 && this.c <= 122) 
+                // Lowercase
+                this.output += String.fromCharCode((this.c - 97 + this.key) % 26 + 97);  
+            else   
+                this.output += input.charAt(i);    
         }
-
-    </script>
-
+    return answer.innerHTML= output;
+} 
+	</script>
